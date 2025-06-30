@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function AdminPanel({ token, onLogout }) {
   const [pendingUsers, setPendingUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    fetch('/api/users/pending', {
+    fetch(`${API_URL}/api/users/pending`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())
@@ -18,7 +20,7 @@ function AdminPanel({ token, onLogout }) {
 
   const approveUser = async (id) => {
     setMessage('');
-    const res = await fetch(`/api/users/approve/${id}`, {
+    const res = await fetch(`${API_URL}/api/users/approve/${id}`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}` }
     });

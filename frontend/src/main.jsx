@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import AdminPanel from './admin/AdminPanel';
 import UserLogin from './user/UserLogin';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function parseJwt(token) {
   try {
     return JSON.parse(atob(token.split('.')[1]));
@@ -30,7 +32,7 @@ function App() {
     setLoading(true);
     setMessage('');
     try {
-      const res = await fetch('/api/login', {
+      const res = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
